@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <form id="form" method="POST" action="{{ url_for('search') }}">
+            <input
+                type="text"
+                id="search"
+                name="search"
+                placeholder="Search"
+                class="search"
+            />
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    <main id="main">
+        {% for movie in movies %}
+        <div class="movie">
+            <img src="{{ img_path + movie.poster_path }}" alt="{{ movie.title }}">
+            <div class="movie-info">
+                <h3>{{ movie.title }}</h3>
+                <span class="{{ getClassByRate(movie.vote_average) }}">{{ movie.vote_average }}</span>
+            </div>
+            <div class="overview">
+                <h3>Overview:</h3>
+                {{ movie.overview }}
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+</body>
+</html>
